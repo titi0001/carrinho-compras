@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Categories from '../components/Categories';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   constructor() {
@@ -18,6 +19,7 @@ class Home extends Component {
     const { searchList } = this.state;
     return (
       <div>
+        <Link data-testid="shopping-cart-button" to="/Cart">Carrinho</Link>
         <label htmlFor="search">
           Busca
           <input
