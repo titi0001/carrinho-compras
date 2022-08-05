@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import Categories from '../components/Categories';
 
-export default class Home extends Component {
+class Home extends Component {
   constructor() {
     super();
 
@@ -26,6 +27,7 @@ export default class Home extends Component {
             onChange={ this.handleChange }
           />
         </label>
+        <Categories />
         {searchList.length === 0 ? (
           <p
             data-testid="home-initial-message"
@@ -37,3 +39,5 @@ export default class Home extends Component {
     );
   }
 }
+
+export default Home;
