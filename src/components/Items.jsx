@@ -12,7 +12,6 @@ class Items extends Component {
         <span>
           R$
           {price}
-          ,00
         </span>
       </div>
     );
