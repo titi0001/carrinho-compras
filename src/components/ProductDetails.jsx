@@ -18,15 +18,12 @@ export default class ProductDetails extends Component {
     this.setState({
       product: item,
     });
-    // console.log(id);
-    // title
-    // console.log(item);
   }
 
   render() {
     const { product } = this.state;
     const { title, price, thumbnail } = product;
-    // console.log(product);
+    const finalPrice = Number(price).toFixed(2);
     return (
       <div>
         <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
@@ -34,7 +31,7 @@ export default class ProductDetails extends Component {
         <span data-testid="product-detail-price">
           R$:
           {' '}
-          {price}
+          {finalPrice}
         </span>
         <Link data-testid="shopping-cart-button" to="/Cart">Carrinho</Link>
       </div>
