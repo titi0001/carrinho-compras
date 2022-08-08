@@ -8,23 +8,27 @@ class Items extends Component {
     const { title, thumbnail, price, id } = product;
     return (
       <div data-testid="product">
-
+        <h3>{title}</h3>
+        <span>
+          R$
+          {price}
+        </span>
         <Link data-testid="product-detail-link" to={ `/ProductDetails/${id}` }>
-          <h3>{title}</h3>
           <img src={ thumbnail } alt={ title } />
-          <span>
-            R$
-            {price}
-          </span>
-
+          <button
+            type="submit"
+          >
+            Mais Detalhes
+          </button>
         </Link>
+
       </div>
     );
   }
 }
 
 Items.propTypes = {
-  product: PropTypes.shape.isRequired,
+  product: PropTypes.string.isRequired,
 };
 
 export default Items;
