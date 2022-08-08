@@ -27,10 +27,10 @@ export default class Cart extends Component {
           <p data-testid="shopping-cart-empty-message ">
             Seu carrinho está vazio
           </p>) : (
-          storage.map(({ name, image, price, id }) => (
+          storage.map(({ title, thumbnail, price, id }) => (
             <div key={ id }>
-              <h3 data-testid="shopping-cart-product-name">{name}</h3>
-              <img src={ image } alt={ name } />
+              <h3 data-testid="shopping-cart-product-name">{title}</h3>
+              <img src={ thumbnail } alt={ title } />
               <span>{ price.toFixed(2) }</span>
               <p data-testid="shopping-cart-product-quantity">{storage.length}</p>
             </div>

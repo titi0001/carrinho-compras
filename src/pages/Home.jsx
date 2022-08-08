@@ -38,7 +38,6 @@ class Home extends Component {
   render() {
     const { searchList, itemsAPI } = this.state;
 
-    // console.log(itemsAPI);
     const showProducts = itemsAPI.map((item) => (
       <div key={ item.id }>
         <Items

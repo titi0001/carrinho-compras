@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class Items extends Component {
   addToCart = () => {
     const { product: { title, thumbnail, price } } = this.props;
-    const dataObj = { name: title, image: thumbnail, price };
+    const dataObj = { title, thumbnail, price };
     if (localStorage.getItem('products') === null) {
       localStorage.setItem('products', JSON.stringify([dataObj]));
     } else {
