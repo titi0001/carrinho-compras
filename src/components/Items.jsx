@@ -6,14 +6,12 @@ class Items extends Component {
   addToCart = () => {
     const { product: { title, thumbnail, price } } = this.props;
     const dataObj = { name: title, image: thumbnail, price };
-    const getStorage = localStorage.getItem('products');
-    const storage = [getStorage];
-    if (getStorage === null) {
-      localStorage.setItem('products', JSON.stringify(storage));
+    if (localStorage.getItem('products') === null) {
+      localStorage.setItem('products', JSON.stringify([dataObj]));
     } else {
       localStorage.setItem(
         'products',
-        JSON.stringify([...JSON.parse(condition), dataObj,
+        JSON.stringify([...JSON.parse(localStorage.getItem('products')), dataObj,
         ]),
       );
     }
