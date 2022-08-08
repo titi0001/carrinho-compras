@@ -33,6 +33,7 @@ class Items extends Component {
             type="submit"
           >
             Mais Detalhes
+
           </button>
         </Link>
         <button
