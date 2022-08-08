@@ -11,7 +11,7 @@ class Home extends Component {
     this.state = {
       searchList: '',
       itemsAPI: [],
-
+      // failedGetItems: '',
     };
   }
 
@@ -20,20 +20,18 @@ class Home extends Component {
   }
 
   handleSearch = async () => {
-    console.log('fui clicado');
     const { searchList } = this.state;
     const getAPI = await getProductsFromCategoryAndQuery(searchList);
     this.setState({ itemsAPI: getAPI.results });
     // const failedFetch = getAPI.length === 0;
+    // const failureMsg = 'Nenhum produto foi encontrado';
     // if (!failedFetch.length) {
     //   this.setState({ itemsAPI: getAPI.results });
-    // } this.setState({ failedGetItems: 'Nenhum Produto Foi Encontrado' });
+    // } this.setState({ failedGetItems: failureMsg });
   }
 
   handleSearchCategory = async ({ target: { value } }) => {
-    // console.log(value);
     const fetchCategories = await getProductsFromCategoryAndQuery(value);
-    // console.log(fetchCategories.results);
     this.setState({ itemsAPI: fetchCategories.results });
   }
 
@@ -79,7 +77,7 @@ class Home extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>)
           : null }
-        {itemsAPI.length === 0 ? <p>Nenhum produto foi encontrado</p> : showProducts}
+        {itemsAPI.length === 0 ? 'Nenhum produto foi encontrado' : showProducts}
       </div>
     );
   }
