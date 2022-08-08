@@ -20,9 +20,9 @@ class Home extends Component {
   }
 
   handleSearch = async () => {
-    console.log('fui clicado');
     const { searchList } = this.state;
     const getAPI = await getProductsFromCategoryAndQuery(searchList);
+    console.log(getAPI);
     this.setState({ itemsAPI: getAPI.results });
     // const failedFetch = getAPI.length === 0;
     // if (!failedFetch.length) {

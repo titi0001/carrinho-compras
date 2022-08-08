@@ -16,6 +16,16 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
     const data = await response.json();
     return data;
   } catch (error) {
-    return 'API Falhou!';
+    return 'API Falhou!!';
+  }
+}
+
+export async function getProductDetails(id) {
+  try {
+    const itemDetails = await fetch(`https://api.mercadolibre.com/items/${id}`);
+    const data = await itemDetails.json();
+    return data;
+  } catch (error) {
+    return 'API Falhou!!!';
   }
 }
