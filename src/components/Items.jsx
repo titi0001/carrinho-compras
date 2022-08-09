@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import addToLocalStorage from '../services/localStorage';
 
 class Items extends Component {
   addToCart = () => {
     const { product: { title, thumbnail, price } } = this.props;
     const dataObj = { title, thumbnail, price };
-    if (localStorage.getItem('products') === null) {
-      localStorage.setItem('products', JSON.stringify([dataObj]));
-    } else {
-      localStorage.setItem(
-        'products',
-        JSON.stringify([...JSON.parse(localStorage.getItem('products')), dataObj,
-        ]),
-      );
-    }
+    addToLocalStorage(dataObj);
   }
 
   render() {

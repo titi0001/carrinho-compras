@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductDetails } from '../services/api';
+import addToLocalStorage from '../services/localStorage';
 
 export default class ProductDetails extends Component {
   state = {
@@ -20,10 +21,17 @@ export default class ProductDetails extends Component {
     });
   }
 
+  addToCart = () => {
+    const { product: { title, thumbnail, price } } = this.state;
+    const dataObj = { title, thumbnail, price };
+    addToLocalStorage(dataObj);
+  }
+
   render() {
     const { product } = this.state;
     const { title, price, thumbnail } = product;
     const finalPrice = Number(price).toFixed(2);
+    console.log(product);
     return (
       <div>
         <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
@@ -34,6 +42,13 @@ export default class ProductDetails extends Component {
           {finalPrice}
         </span>
         <Link data-testid="shopping-cart-button" to="/Cart">Carrinho</Link>
+        <button
+          data-testid="product-detail-add-to-cart"
+          type="button"
+          onClick={ this.addToCart }
+        >
+          Adicionar ao carrinho
+        </button>
       </div>
 
     );

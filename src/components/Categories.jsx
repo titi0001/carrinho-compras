@@ -29,10 +29,10 @@ class Categories extends Component {
           Categories:
         </h3>
         {categoriesList.map(({ id, name }) => (
-          <label key={ id } htmlFor="category">
-
+          <label key={ id } htmlFor={ id }>
             <br />
             <input
+              id={ id }
               name="category"
               type="radio"
               data-testid="category"
