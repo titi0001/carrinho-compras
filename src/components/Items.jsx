@@ -10,6 +10,8 @@ class Items extends Component {
     addToLocalStorage(dataObj);
   }
 
+  addEqualItems = () => {}
+
   render() {
     const { product } = this.props;
     const { title, thumbnail, price, id } = product;
