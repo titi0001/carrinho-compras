@@ -7,7 +7,6 @@ class Categories extends Component {
     super();
     this.state = {
       categoriesList: [],
-      // itensList: [],
     };
   }
 
@@ -36,7 +35,7 @@ class Categories extends Component {
               name="category"
               type="radio"
               data-testid="category"
-              value={ name }
+              value={ id }
               onClick={ onClick }
             />
             {name}

@@ -6,7 +6,7 @@ import addToLocalStorage from '../services/localStorage';
 class Items extends Component {
   addToCart = () => {
     const { product: { title, thumbnail, price } } = this.props;
-    const dataObj = { title, thumbnail, price };
+    const dataObj = { title, thumbnail, price, quantity: 1 };
     addToLocalStorage(dataObj);
   }
 

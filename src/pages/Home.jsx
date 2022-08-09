@@ -13,7 +13,6 @@ class Home extends Component {
     this.state = {
       searchList: '',
       itemsAPI: [],
-      // failedGetItems: '',
     };
   }
 
@@ -53,7 +52,6 @@ class Home extends Component {
 
   render() {
     const { searchList, itemsAPI } = this.state;
-
     const showProducts = itemsAPI.map((item) => (
       <div key={ item.id }>
         <Items
