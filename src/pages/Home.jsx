@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Categories from '../components/Categories';
 import Items from '../components/Items';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getProductsFromCategory,
+  getProductsFromCategoryAndQuery,
+  getProductsFromQuery } from '../services/api';
 
 class Home extends Component {
   constructor() {
@@ -19,20 +21,34 @@ class Home extends Component {
     this.setState({ searchList: value });
   }
 
-  handleSearch = async () => {
+  handleSearch = () => {
     const { searchList } = this.state;
-    const getAPI = await getProductsFromCategoryAndQuery(searchList);
-    this.setState({ itemsAPI: getAPI.results });
-    // const failedFetch = getAPI.length === 0;
-    // const failureMsg = 'Nenhum produto foi encontrado';
-    // if (!failedFetch.length) {
-    //   this.setState({ itemsAPI: getAPI.results });
-    // } this.setState({ failedGetItems: failureMsg });
+    this.setState({
+      itemsAPI: [],
+    }, async () => {
+      if (searchList === '') {
+        const getAPI = await getProductsFromCategoryAndQuery();
+        return this.setState({ itemsAPI: getAPI.results });
+      } if (searchList.length > 0) {
+        const getAPI = await getProductsFromQuery(searchList);
+        return this.setState({ itemsAPI: getAPI.results });
+      }
+    });
   }
 
-  handleSearchCategory = async ({ target: { value } }) => {
-    const fetchCategories = await getProductsFromCategoryAndQuery(value);
-    this.setState({ itemsAPI: fetchCategories.results });
+  handleSearchCategory = ({ target: { value } }) => {
+    const { searchList } = this.state;
+    this.setState({
+      itemsAPI: [],
+    }, async () => {
+      let fetchCategories;
+      if (searchList) {
+        fetchCategories = await getProductsFromCategoryAndQuery(value, searchList);
+      } else {
+        fetchCategories = await getProductsFromCategory(value);
+      }
+      this.setState({ itemsAPI: fetchCategories.results });
+    });
   }
 
   render() {

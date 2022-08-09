@@ -20,22 +20,25 @@ export default class Cart extends Component {
 
   render() {
     const { storage } = this.state;
-    console.log(typeof storage);
+
     return (
       <div>
         {storage === null ? (
           <p data-testid="shopping-cart-empty-message ">
             Seu carrinho está vazio
-          </p>) : (
-          storage.map(({ title, thumbnail, price, id }) => (
-            <div key={ id }>
-              <h3 data-testid="shopping-cart-product-name">{title}</h3>
-              <img src={ thumbnail } alt={ title } />
-              <span>{ price.toFixed(2) }</span>
+          </p>)
+          : (
+            <div>
               <p data-testid="shopping-cart-product-quantity">{storage.length}</p>
+              {storage.map(({ title, thumbnail, price }, index) => (
+                <div key={ index }>
+                  <h3 data-testid="shopping-cart-product-name">{title}</h3>
+                  <img src={ thumbnail } alt={ title } />
+                  <span>{ price.toFixed(2) }</span>
+                </div>
+              ))}
             </div>
-          ))
-        )}
+          )}
       </div>
     );
   }
