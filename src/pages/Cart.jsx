@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
 
 export default class Cart extends Component {
   constructor() {
@@ -13,8 +14,10 @@ export default class Cart extends Component {
   }
 
   getStorage = () => {
-    const storage = localStorage.getItem('products');
-    const dataObj = JSON.parse(storage);
+    // const { id } = this.props;
+    const storage = localStorage.getItem(localStorage.key('id'));
+    console.log(JSON.parse(storage));
+    const dataObj = [...JSON.parse(storage)];
     this.setState({ storage: dataObj });
   }
 
@@ -30,7 +33,7 @@ export default class Cart extends Component {
           : (
             <div>
               <p data-testid="shopping-cart-product-quantity">{storage.length}</p>
-              {storage.map(({ title, thumbnail, price }, index) => (
+              {Object.values(storage).map(({ title, thumbnail, price }, index) => (
                 <div key={ index }>
                   <h3 data-testid="shopping-cart-product-name">{title}</h3>
                   <img src={ thumbnail } alt={ title } />
