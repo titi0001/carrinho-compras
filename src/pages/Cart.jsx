@@ -29,7 +29,11 @@ export default class Cart extends Component {
           </p>)
           : (
             <div>
-              <p data-testid="shopping-cart-product-quantity">{storage.length}</p>
+              <p
+                data-testid="shopping-cart-product-quantity"
+              >
+                {storage.reduce((acc, { quantity }) => acc + quantity, 0)}
+              </p>
               {storage.map(({ title, thumbnail, price, quantity }, index) => (
                 <div key={ index }>
                   <h3 data-testid="shopping-cart-product-name">{title}</h3>

@@ -22,8 +22,8 @@ export default class ProductDetails extends Component {
   }
 
   addToCart = () => {
-    const { product: { title, thumbnail, price } } = this.state;
-    const dataObj = { title, thumbnail, price };
+    const { product: { title, thumbnail, price, id } } = this.state;
+    const dataObj = { title, thumbnail, price, id, quantity: 1 };
     addToLocalStorage(dataObj);
   }
 
