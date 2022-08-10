@@ -30,11 +30,12 @@ export default class Cart extends Component {
           : (
             <div>
               <p data-testid="shopping-cart-product-quantity">{storage.length}</p>
-              {storage.map(({ title, thumbnail, price }, index) => (
+              {storage.map(({ title, thumbnail, price, quantity }, index) => (
                 <div key={ index }>
                   <h3 data-testid="shopping-cart-product-name">{title}</h3>
                   <img src={ thumbnail } alt={ title } />
-                  <span>{ price.toFixed(2) }</span>
+                  <span>{ (price * quantity).toFixed(2) }</span>
+                  <p>{quantity}</p>
                 </div>
               ))}
             </div>
