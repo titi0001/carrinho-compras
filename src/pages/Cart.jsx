@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 
 export default class Cart extends Component {
   constructor() {
@@ -14,11 +13,39 @@ export default class Cart extends Component {
   }
 
   getStorage = () => {
-    // const { id } = this.props;
     const storage = localStorage.getItem(localStorage.key('id'));
     console.log(JSON.parse(storage));
     const dataObj = [...JSON.parse(storage)];
     this.setState({ storage: dataObj });
+  }
+
+  handleIncrease = (id) => {
+    const { storage } = this.state;
+    storage.map((item) => {
+      if (item.id === id) {
+        item.quantity += 1;
+      }
+      return this
+        .setState({ storage: [...storage] }, () => localStorage
+          .setItem('products', JSON.stringify([...storage])));
+    });
+  }
+
+  handleDecrease = (id) => {
+    const { storage } = this.state;
+    storage.map((item) => {
+      if (item.id === id) {
+        item.quantity -= 1;
+      }
+      return this.setState({ storage: [...storage] }, () => localStorage
+        .setItem('products', JSON.stringify([...storage])));
+    });
+  }
+
+  handleRemove = (id) => {
+    const { storage } = this.state;
+    const newStorage = storage.filter((del) => del.id !== id);
+    this.setState({ storage: newStorage });
   }
 
   render() {
@@ -32,12 +59,40 @@ export default class Cart extends Component {
           </p>)
           : (
             <div>
-              <p data-testid="shopping-cart-product-quantity">{storage.length}</p>
-              {Object.values(storage).map(({ title, thumbnail, price }, index) => (
+              <p>
+                {storage.reduce((acc, { quantity }) => acc + quantity, 0)}
+              </p>
+              {storage.map(({ title, thumbnail, price, id, quantity }, index) => (
                 <div key={ index }>
                   <h3 data-testid="shopping-cart-product-name">{title}</h3>
                   <img src={ thumbnail } alt={ title } />
-                  <span>{ price.toFixed(2) }</span>
+                  <span>{ (price * quantity).toFixed(2) }</span>
+                  <p data-testid="shopping-cart-product-quantity">{quantity}</p>
+                  <button
+                    type="button"
+                    data-testid="product-increase-quantity"
+                    onClick={ () => this.handleIncrease(id) }
+                    value={ id }
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="product-decrease-quantity"
+                    disabled={ quantity === 1 }
+                    onClick={ () => this.handleDecrease(id) }
+                    value={ id }
+                  >
+                    -
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="remove-product"
+                    onClick={ () => this.handleRemove(id) }
+                    value={ id }
+                  >
+                    Remover do carrinho
+                  </button>
                 </div>
               ))}
             </div>

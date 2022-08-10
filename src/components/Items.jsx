@@ -6,8 +6,8 @@ import addToLocalStorage from '../services/localStorage';
 class Items extends Component {
   addToCart = () => {
     const { product: { title, thumbnail, price, id } } = this.props;
-    const dataObj = { title, thumbnail, price, quantity: 1 };
-    addToLocalStorage(`${id}`, dataObj);
+    const dataObj = { title, thumbnail, price, id, quantity: 1 };
+    addToLocalStorage(dataObj);
   }
 
   render() {
@@ -18,7 +18,7 @@ class Items extends Component {
         <h3>{title}</h3>
         <span>
           R$
-          {price.toFixed(2)}
+          {price}
         </span>
         <Link data-testid="product-detail-link" to={ `/ProductDetails/${id}` }>
           <img src={ thumbnail } alt={ title } />
