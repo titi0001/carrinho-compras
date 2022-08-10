@@ -41,6 +41,12 @@ export default class Cart extends Component {
     });
   }
 
+  handleRemove = (id) => {
+    const { storage } = this.state;
+    const newStorage = storage.filter((del) => del.id !== id);
+    this.setState({ storage: newStorage });
+  }
+
   render() {
     const { storage } = this.state;
 
@@ -52,9 +58,7 @@ export default class Cart extends Component {
           </p>)
           : (
             <div>
-              <p
-                data-testid="shopping-cart-product-quantity"
-              >
+              <p>
                 {storage.reduce((acc, { quantity }) => acc + quantity, 0)}
               </p>
               {storage.map(({ title, thumbnail, price, id, quantity }, index) => (
@@ -62,7 +66,7 @@ export default class Cart extends Component {
                   <h3 data-testid="shopping-cart-product-name">{title}</h3>
                   <img src={ thumbnail } alt={ title } />
                   <span>{ (price * quantity).toFixed(2) }</span>
-                  <p>{quantity}</p>
+                  <p data-testid="shopping-cart-product-quantity">{quantity}</p>
                   <button
                     type="button"
                     data-testid="product-increase-quantity"
@@ -83,6 +87,8 @@ export default class Cart extends Component {
                   <button
                     type="button"
                     data-testid="remove-product"
+                    onClick={ () => this.handleRemove(id) }
+                    value={ id }
                   >
                     Remover do carrinho
                   </button>
