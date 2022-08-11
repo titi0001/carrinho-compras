@@ -3,10 +3,12 @@ import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductDetails } from '../services/api';
 import addToLocalStorage from '../services/localStorage';
+import Coment from './Coment';
 
 export default class ProductDetails extends Component {
   state = {
     product: [],
+    load: true,
   }
 
   componentDidMount() {
@@ -18,6 +20,7 @@ export default class ProductDetails extends Component {
     const item = await getProductDetails(id);
     this.setState({
       product: item,
+      load: false,
     });
   }
 
@@ -28,10 +31,12 @@ export default class ProductDetails extends Component {
   }
 
   render() {
-    const { product } = this.state;
+    const { product, load } = this.state;
     const { title, price, thumbnail } = product;
     const finalPrice = Number(price).toFixed(2);
-    console.log(product);
+    if (load) {
+      return <p>Carregando...</p>;
+    }
     return (
       <div>
         <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
@@ -49,6 +54,7 @@ export default class ProductDetails extends Component {
         >
           Adicionar ao carrinho
         </button>
+        <Coment product={ product } />
       </div>
 
     );

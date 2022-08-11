@@ -19,4 +19,15 @@ const addToLocalStorage = (dataObj) => {
   }
 };
 
+export const addComment = (coment, id) => {
+  if (localStorage.getItem(id) === null) {
+    localStorage.setItem(id, JSON.stringify([coment]));
+  } else {
+    const returnComment = JSON.parse(localStorage.getItem(id));
+    const newComment = [...returnComment, coment];
+
+    localStorage.setItem(id, JSON.stringify(newComment));
+  }
+};
+
 export default addToLocalStorage;

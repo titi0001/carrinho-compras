@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { addComment } from '../services/localStorage';
 // import PropTypes from 'prop-types';
 
 export default class Coment extends Component {
@@ -6,8 +7,34 @@ export default class Coment extends Component {
     evaluation: {
       email: '',
       option: '',
+      rate: '',
     },
+    arrayComment: [],
 
+  }
+
+  componentDidMount() {
+    const { product: { id } } = this.props;
+    const teste = localStorage.getItem(id) || [];
+    this.setState({
+      arrayComment: teste,
+    });
+  }
+
+  getLocal = (e) => {
+    e.preventDefault();
+    const { product: { id } } = this.props;
+    const { evaluation } = this.state;
+    addComment(evaluation, id);
+    const teste = localStorage.getItem(id);
+    this.setState({
+      evaluation: {
+        email: '',
+        option: '',
+        rate: '',
+      },
+      arrayComment: teste,
+    });
   }
 
   updateState = (event) => {
@@ -25,7 +52,7 @@ export default class Coment extends Component {
     const four = 4;
     const five = 5;
 
-    const { evaluation: { email, option } } = this.state;
+    const { evaluation: { email, option }, arrayComment } = this.state;
 
     return (
       <div>
@@ -120,6 +147,7 @@ export default class Coment extends Component {
             <button
               data-testid="submit-review-btn"
               type="submit"
+              onClick={ this.getLocal }
             >
               Enviar
 
