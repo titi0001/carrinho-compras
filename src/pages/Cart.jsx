@@ -13,10 +13,13 @@ export default class Cart extends Component {
   }
 
   getStorage = () => {
-    const storage = localStorage.getItem(localStorage.key('id'));
-    console.log(JSON.parse(storage));
-    const dataObj = [...JSON.parse(storage)];
-    this.setState({ storage: dataObj });
+    const storage = JSON.parse(localStorage.getItem('products'));
+    if (!storage) {
+      localStorage.setItem('products', JSON.stringify([]));
+    }
+    // console.log(JSON.parse(storage));
+    // const dataObj = [...JSON.parse(storage)];
+    this.setState({ storage });
   }
 
   handleIncrease = (id) => {
@@ -45,6 +48,7 @@ export default class Cart extends Component {
   handleRemove = (id) => {
     const { storage } = this.state;
     const newStorage = storage.filter((del) => del.id !== id);
+    localStorage.setItem('products', JSON.stringify(newStorage));
     this.setState({ storage: newStorage });
   }
 
@@ -53,8 +57,8 @@ export default class Cart extends Component {
 
     return (
       <div>
-        {storage === null ? (
-          <p data-testid="shopping-cart-empty-message ">
+        {!storage ? (
+          <p data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio
           </p>)
           : (
