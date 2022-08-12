@@ -1,41 +1,50 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { addComment } from '../services/localStorage';
-// import PropTypes from 'prop-types';
+// import { getProductDetails } from '../services/api';
 
 export default class Coment extends Component {
-  state = {
-    evaluation: {
-      email: '',
-      option: '',
-      rate: '',
-    },
-    arrayComment: [],
+  constructor(props) {
+    super(props);
 
-  }
-
-  componentDidMount() {
-    const { product: { id } } = this.props;
-    const teste = localStorage.getItem(id) || [];
-    this.setState({
-      arrayComment: teste,
-    });
-  }
-
-  getLocal = (e) => {
-    e.preventDefault();
-    const { product: { id } } = this.props;
-    const { evaluation } = this.state;
-    addComment(evaluation, id);
-    const teste = localStorage.getItem(id);
-    this.setState({
+    this.state = {
       evaluation: {
         email: '',
         option: '',
         rate: '',
       },
-      arrayComment: teste,
+      arrayComment: [],
+      validation: false,
+    };
+  }
+
+  componentDidMount() {
+    const { id } = this.props;
+    const arrayComment = JSON.parse(localStorage.getItem(id)) || [];
+    console.log(arrayComment);
+    this.setState({
+      arrayComment,
     });
   }
+
+  getLocal = (e) => {
+    e.preventDefault();
+    const { id } = this.props;
+    const { evaluation, validation } = this.state;
+    if (validation) {
+      addComment(evaluation, id);
+      const arrayComment = JSON.parse(localStorage.getItem(id));
+      this.setState({
+        evaluation: {
+          email: '',
+          option: '',
+          rate: '',
+        },
+      }, () => this.setState({
+        arrayComment,
+      }));
+    }
+  };
 
   updateState = (event) => {
     const { name, value } = event.target;
@@ -44,15 +53,27 @@ export default class Coment extends Component {
         ...prevState.evaluation,
         [name]: value,
       },
-    }));
+    }), () => {
+      this.validar();
+    });
+  }
+
+  validar = () => {
+    const { evaluation: { email, rate } } = this.state;
+    const emailRegex = /\S+@\S+.\S+/;
+    if (emailRegex.test(email) && rate) {
+      this.setState({
+        validation: true,
+      });
+    } else {
+      this.setState({
+        validation: false,
+      });
+    }
   }
 
   render() {
-    const three = 3;
-    const four = 4;
-    const five = 5;
-
-    const { evaluation: { email, option }, arrayComment } = this.state;
+    const { evaluation: { email, option }, arrayComment, validation } = this.state;
 
     return (
       <div>
@@ -62,13 +83,12 @@ export default class Coment extends Component {
             Email:
             <input
               data-testid="product-detail-email"
-              type="email"
+              type="text"
               name="email"
               id="user"
               value={ email }
               onChange={ this.updateState }
               placeholder="Digite seu email..."
-              required
             />
           </label>
           <div>
@@ -76,7 +96,7 @@ export default class Coment extends Component {
             <label htmlFor="um">
               1
               <input
-                data-testid={ `${1}-rating` }
+                data-testid="1-rating"
                 type="radio"
                 name="rate"
                 id="um"
@@ -87,7 +107,7 @@ export default class Coment extends Component {
             <label htmlFor="dois">
               2
               <input
-                data-testid={ `${2}-rating` }
+                data-testid="2-rating"
                 type="radio"
                 name="rate"
                 id="dois"
@@ -98,7 +118,7 @@ export default class Coment extends Component {
             <label htmlFor="tres">
               3
               <input
-                data-testid={ `${three}-rating` }
+                data-testid="3-rating"
                 type="radio"
                 name="rate"
                 id="tres"
@@ -109,7 +129,7 @@ export default class Coment extends Component {
             <label htmlFor="quatro">
               4
               <input
-                data-testid={ `${four}-rating` }
+                data-testid="4-rating"
                 type="radio"
                 name="rate"
                 id="quatro"
@@ -120,7 +140,7 @@ export default class Coment extends Component {
             <label htmlFor="cinco">
               5
               <input
-                data-testid={ `${five}-rating` }
+                data-testid="5-rating"
                 type="radio"
                 name="rate"
                 id="cinco"
@@ -133,7 +153,7 @@ export default class Coment extends Component {
               Comentário:
               <br />
               <textarea
-                data-testid="submit-review-btn"
+                data-testid="product-detail-evaluation"
                 name="option"
                 id="textArea"
                 cols="30"
@@ -152,6 +172,17 @@ export default class Coment extends Component {
               Enviar
 
             </button>
+            {!validation && <p data-testid="error-msg">Campos inválidos</p>}
+
+            { arrayComment.length && (
+
+              arrayComment.map((product, index) => (
+                <div key={ index }>
+                  <p data-testid="review-card-email">{product.email}</p>
+                  <p data-testid="review-card-evaluation">{product.option}</p>
+                  <p data-testid="review-card-rating">{product.rate}</p>
+                </div>))
+            )}
           </div>
         </form>
       </div>
@@ -159,9 +190,8 @@ export default class Coment extends Component {
   }
 }
 
-// Coment.propTypes = {
-//   product: PropTypes.shape({
-//     title: PropTypes.string.isRequired,
-//   }).isRequired,
+Coment.propTypes = {
 
-// };
+  id: PropTypes.string.isRequired,
+
+};

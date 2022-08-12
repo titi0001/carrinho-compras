@@ -8,7 +8,6 @@ import Coment from './Coment';
 export default class ProductDetails extends Component {
   state = {
     product: [],
-    load: true,
   }
 
   componentDidMount() {
@@ -20,7 +19,6 @@ export default class ProductDetails extends Component {
     const item = await getProductDetails(id);
     this.setState({
       product: item,
-      load: false,
     });
   }
 
@@ -31,13 +29,13 @@ export default class ProductDetails extends Component {
   }
 
   render() {
-    const { product, load } = this.state;
+    const { product } = this.state;
+    const { match: { params: { id } } } = this.props;
     const { title, price, thumbnail } = product;
     const finalPrice = Number(price).toFixed(2);
-    if (load) {
-      return <p>Carregando...</p>;
-    }
+
     return (
+
       <div>
         <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
         <h3 data-testid="product-detail-name">{title}</h3>
@@ -54,7 +52,7 @@ export default class ProductDetails extends Component {
         >
           Adicionar ao carrinho
         </button>
-        <Coment product={ product } />
+        <Coment id={ id } />
       </div>
 
     );
