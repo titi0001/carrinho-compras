@@ -25,12 +25,12 @@ class Home extends Component {
     this.setState({
       itemsAPI: [],
     }, async () => {
-      if (searchList === '') {
+      if (searchList) {
         const getAPI = await getProductsFromCategoryAndQuery();
-        return this.setState({ itemsAPI: getAPI.results });
-      } if (searchList.length > 0) {
+        this.setState({ itemsAPI: getAPI.results });
+      } if (searchList.length) {
         const getAPI = await getProductsFromQuery(searchList);
-        return this.setState({ itemsAPI: getAPI.results });
+        this.setState({ itemsAPI: getAPI.results });
       }
     });
   }
@@ -83,14 +83,14 @@ class Home extends Component {
         <Categories
           onClick={ (event) => this.handleSearchCategory(event) }
         />
-        {searchList.length === 0 ? (
+        {!searchList.length ? (
           <p
             data-testid="home-initial-message"
           >
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>)
           : null }
-        {itemsAPI.length === 0 ? 'Nenhum produto foi encontrado' : showProducts}
+        {!itemsAPI.length ? 'Nenhum produto foi encontrado' : showProducts}
       </div>
     );
   }

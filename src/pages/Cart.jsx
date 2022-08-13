@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Cart extends Component {
   constructor() {
@@ -17,8 +18,6 @@ export default class Cart extends Component {
     if (!storage) {
       localStorage.setItem('products', JSON.stringify([]));
     }
-    // console.log(JSON.parse(storage));
-    // const dataObj = [...JSON.parse(storage)];
     this.setState({ storage });
   }
 
@@ -99,6 +98,12 @@ export default class Cart extends Component {
                   </button>
                 </div>
               ))}
+              <Link
+                data-testid="checkout-products"
+                to="/Checkout"
+              >
+                Finalizar compra
+              </Link>
             </div>
           )}
       </div>

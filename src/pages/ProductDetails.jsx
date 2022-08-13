@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductDetails } from '../services/api';
 import addToLocalStorage from '../services/localStorage';
-import Coment from './Coment';
+import Coment from '../components/Coment';
 
 export default class ProductDetails extends Component {
   state = {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { addComment } from '../services/localStorage';
-// import { getProductDetails } from '../services/api';
 
 export default class Coment extends Component {
   constructor(props) {
@@ -170,12 +169,9 @@ export default class Coment extends Component {
               onClick={ this.getLocal }
             >
               Enviar
-
             </button>
             {!validation && <p data-testid="error-msg">Campos inválidos</p>}
-
-            { arrayComment.length && (
-
+            {arrayComment.length && (
               arrayComment.map((product, index) => (
                 <div key={ index }>
                   <p data-testid="review-card-email">{product.email}</p>

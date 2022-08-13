@@ -11,7 +11,7 @@ const checkIfExists = (item) => {
 };
 
 const addToLocalStorage = (dataObj) => {
-  if (localStorage.getItem('products') === null) {
+  if (!localStorage.getItem('products')) {
     localStorage.setItem('products', JSON.stringify([dataObj]));
   } else {
     const returnedArray = checkIfExists(dataObj);
@@ -20,7 +20,7 @@ const addToLocalStorage = (dataObj) => {
 };
 
 export const addComment = (coment, id) => {
-  if (localStorage.getItem(id) === null) {
+  if (!localStorage.getItem(id)) {
     localStorage.setItem(id, JSON.stringify([coment]));
   } else {
     const returnComment = JSON.parse(localStorage.getItem(id));
