@@ -12,7 +12,7 @@ function App() {
       <Route exact path="/" component={ Home } />
       <Route exact path="/Cart" component={ Cart } />
       <Route exact path="/ProductDetails/:id" component={ ProductDetails } />
-      <Route exact path="/Checkout" component={ Checkout } />
+      <Route exact path="/Checkout" component={ (props) => <Checkout { ...props } /> } />
     </BrowserRouter>
   );
 }

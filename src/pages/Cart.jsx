@@ -56,7 +56,7 @@ export default class Cart extends Component {
 
     return (
       <div>
-        {!storage ? (
+        {!storage || !storage.length ? (
           <p data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio
           </p>)
