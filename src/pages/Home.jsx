@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Categories from '../components/Categories';
+import Header from '../components/Header';
 import Items from '../components/Items';
 import { getProductsFromCategory,
   getProductsFromCategoryAndQuery,
@@ -13,7 +14,20 @@ class Home extends Component {
     this.state = {
       searchList: '',
       itemsAPI: [],
+      storage: [],
     };
+  }
+
+  componentDidMount() {
+    this.getStorage();
+  }
+
+  getStorage = () => {
+    const storage = JSON.parse(localStorage.getItem('products')) || [];
+    if (!storage) {
+      localStorage.setItem('products', JSON.stringify([]));
+    }
+    this.setState({ storage });
   }
 
   handleChange = ({ target: { value } }) => {
@@ -51,16 +65,18 @@ class Home extends Component {
   }
 
   render() {
-    const { searchList, itemsAPI } = this.state;
+    const { searchList, itemsAPI, storage } = this.state;
     const showProducts = itemsAPI.map((item) => (
       <div key={ item.id }>
         <Items
           product={ item }
+          getStorage={ this.getStorage }
         />
       </div>
     ));
     return (
       <div>
+        <Header storage={ storage } />
         <Link data-testid="shopping-cart-button" to="/Cart">Carrinho</Link>
         <label htmlFor="search">
           Busca:
