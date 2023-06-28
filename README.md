@@ -1,42 +1,40 @@
 # :convenience_store: FrontEnd Online Store! :convenience_store:
 
-<p align="center"><strong>👨‍💻 Projeto em grupo do módulo de Front-end do curso de Desenvolvimento Web da Trybe, desenvolvido por Daniel Wolter, Carlos Prado, Alvim JP, José Filipe Vieira Furieri. </p><br />
+This was our first front-end module group work! It was a job in which we put agile methodologies into practice, using the Trello tool to organize the requirements.
+We organized ourselves in pair programming and did the entire work in pairs or in trios. We open a branch by requirement, then open a pull request and wait for code review from other members to approve and merge into our main branch.
 
-Este foi o nosso primeiro trabalho em grupo do módulo de front-end! Foi um trabalho em que colocamos as metodologias ágeis em prática, utilizando a ferramenta Trello para organizar os requisitos. 
-Nos organizamos em pair programming e fizemos o trabalho inteiro em duplas ou em trios. Abrimos uma branch por requisito em seguida abríamos um pull request e aguardávamos code review de outros membros para aprovar e dar um merge na nossa branch principal. 
-
-### Mas do que se trata a front-end online store? 
-Precisamos desenvolver uma loja online alimentada pela API do mercado livre. Onde seria possível para o cliente filtrar os produtos por categoria, pesquisar na barra de pesquisa, adicionar, remover e alterar a quantidade do produto no carrinho e em seguida finalizar a compra em uma página de checkout.
+### But what is the online store front-end all about?
+We need to develop an online store powered by the free market API. Where it would be possible for the customer to filter products by category, search in the search bar, add, remove and change the quantity of the product in the cart and then complete the purchase on a checkout page.
 
 
-### Endpoints da API
-<li>Para listar as categorias disponíveis: https://api.mercadolibre.com/sites/MLB/categories </li>
-<li>Para buscar itens por termo: https://api.mercadolibre.com/sites/MLB/search?q=${valor-da-busca} </li>
-<li>Para buscar itens por categoria: https://api.mercadolibre.com/sites/MLB/search?category=${id-da-categoria} </li>
-<li>Para buscar itens de uma categoria por termo: https://api.mercadolibre.com/sites/MLB/search?category=${id-da-categoria}&q=${valor-da-busca}</li>
-<li>Para buscar detalhes de um item específico: https://api.mercadolibre.com/items/${id-do-produto}
+### API endpoints
+<li>To list available categories: https://api.mercadolibre.com/sites/MLB/categories </li>
+<li>To search for items by term: https://api.mercadolibre.com/sites/MLB/search?q=${search-value} </li>
+<li>To search for items by category: https://api.mercadolibre.com/sites/MLB/search?category=${category-id} </li>
+<li>To search for items in a category by term: https://api.mercadolibre.com/sites/MLB/search?category=${category-id}&q=${search-value}</ li>
+<li>To fetch details for a specific item: https://api.mercadolibre.com/items/${product-id}
 
-## Tecnologias usadas
-Front-end:
-> Desenvolvido usando: React, CSS3, HTML5, ES6
+## Technologies used
+frontend:
+> Developed using: React, CSS3, HTML5, ES6
   
-## Instalando Dependências
+## Installing Dependencies
 > Frontend
 ```bash
 cd src/
 npm install
-``` 
-## Executando aplicação
-* Para rodar o front-end:
+```
+## Running application
+* To run the frontend:
 
-  ```
-    cd src/ && npm start
-  ```
+   ```
+     cd src/ && npm start
+   ```
 
-## Executando Testes
+## Running Tests
 
-* Para rodar todos os testes:
+* To run all tests:
 
-  ```
-    npm test
-  ```
+   ```
+     npm test
+   ```
